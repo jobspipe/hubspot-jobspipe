@@ -27,8 +27,23 @@ const CompanyHiringCard = ({ context, runServerlessFunction, sendAlert }) => {
   const [companyDomain, setCompanyDomain] = useState(null);
 
   useEffect(() => {
-    fetchCompanyDomain();
+    initializeAndFetch();
   }, [context.crm.objectId]);
+
+  const initializeAndFetch = async () => {
+    // Ensure custom properties exist (idempotent)
+    try {
+      await runServerlessFunction({
+        name: 'ensureCustomProperties'
+      });
+    } catch (err) {
+      // Non-fatal - properties might already exist
+      console.warn('Property initialization check:', err);
+    }
+    
+    // Proceed with normal data fetch
+    fetchCompanyDomain();
+  };
 
   const fetchCompanyDomain = async () => {
     try {

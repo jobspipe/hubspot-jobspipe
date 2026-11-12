@@ -87,33 +87,23 @@ In HubSpot account:
 3. Use production API key (starts with `jp_live_`)
 4. Test the connection
 
-### 5. Create Custom Properties
-
-Create these in production account:
-```
-Settings → Properties → Company Properties → Create property
-```
-
-Properties:
-- `jobspipe_open_roles_count` (Number)
-- `jobspipe_top_department` (Single-line text)
-- `jobspipe_hiring_signal` (Single-line text)
-- `jobspipe_last_updated` (Date picker)
-
-### 6. Install and Test
+### 5. Install and Test
 
 1. Install app in production account
-2. Add card to a company record
-3. Test with real company data
-4. Verify all features work:
-   - Card loads
+2. Configure JobsPipe API key in app settings
+3. Add card to a company record
+4. Test with real company data
+5. Verify all features work:
+   - Card loads and custom properties are auto-created
    - Data displays correctly
    - Refresh works
    - Sync to properties works
    - Error handling works
    - Workflow action executes
 
-### 7. Monitor
+Note: Custom company properties (`jobspipe_*`) are created automatically on first use.
+
+### 6. Monitor
 
 After deployment:
 - Check HubSpot logs for errors

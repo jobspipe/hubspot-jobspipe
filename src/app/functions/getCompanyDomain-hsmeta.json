@@ -2,7 +2,7 @@
   "uid": "getCompanyDomain",
   "type": "function",
   "config": {
-    "runtime": "nodejs18.x",
+    "runtime": "nodejs20.x",
     "version": "1.0",
     "entrypoint": "/app/functions/getCompanyDomain.js",
     "secrets": []
