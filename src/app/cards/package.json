@@ -1,0 +1,9 @@
+{
+  "name": "jobspipe-cards",
+  "version": "1.0.0",
+  "description": "JobsPipe HubSpot App Cards",
+  "dependencies": {
+    "@hubspot/ui-extensions": "^1.0.0",
+    "react": "^18.2.0"
+  }
+}

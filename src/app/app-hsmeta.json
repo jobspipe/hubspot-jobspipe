@@ -1,0 +1,21 @@
+{
+  "uid": "jobspipe-app",
+  "type": "app",
+  "config": {
+    "name": "JobsPipe - Hiring Intelligence",
+    "description": "View hiring data and signals for companies directly in HubSpot CRM",
+    "distribution": "marketplace",
+    "auth": {
+      "type": "oauth",
+      "scopes": [
+        "crm.objects.companies.read",
+        "crm.objects.companies.write"
+      ]
+    },
+    "secrets": {
+      "JOBSPIPE_API_KEY": {
+        "description": "Your JobsPipe API key from https://jobspipe.dev/dashboard"
+      }
+    }
+  }
+}

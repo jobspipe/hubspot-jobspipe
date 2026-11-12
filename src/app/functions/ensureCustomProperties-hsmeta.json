@@ -1,0 +1,10 @@
+{
+  "uid": "ensureCustomProperties",
+  "type": "function",
+  "config": {
+    "runtime": "nodejs20.x",
+    "version": "1.0",
+    "entrypoint": "/app/functions/ensureCustomProperties.js",
+    "secrets": []
+  }
+}

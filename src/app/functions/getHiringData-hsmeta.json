@@ -1,0 +1,10 @@
+{
+  "uid": "getHiringData",
+  "type": "function",
+  "config": {
+    "runtime": "nodejs20.x",
+    "version": "1.0",
+    "entrypoint": "/app/functions/getHiringData.js",
+    "secrets": ["JOBSPIPE_API_KEY"]
+  }
+}
