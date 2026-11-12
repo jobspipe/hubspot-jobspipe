@@ -10,7 +10,7 @@ exports.main = async (context = {}, sendResponse) => {
   const apiKey = context.secrets.JOBSPIPE_API_KEY;
 
   // Default output
-  let outputFields = {
+  const outputFields = {
     open_roles_count: 0,
     top_department: '',
     hiring_signal: '',

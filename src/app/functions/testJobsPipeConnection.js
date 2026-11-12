@@ -25,7 +25,7 @@ exports.main = async (context = {}, sendResponse) => {
   try {
     // Make a minimal API call to test the key
     // Using the sandbox endpoint which is free and doesn't consume credits
-    const response = await axios.post(
+    await axios.post(
       'https://api.jobspipe.dev/v1/sandbox/jobs/search',
       {},
       {
