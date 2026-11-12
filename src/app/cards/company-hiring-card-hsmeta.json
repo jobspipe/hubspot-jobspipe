@@ -1,0 +1,11 @@
+{
+  "uid": "company-hiring-card",
+  "type": "card",
+  "config": {
+    "name": "JobsPipe Hiring Intelligence",
+    "description": "Shows open roles, hiring departments, and hiring signals for this company",
+    "entrypoint": "/app/cards/CompanyHiringCard.jsx",
+    "objectTypes": ["COMPANIES"],
+    "location": "crm.record.tab"
+  }
+}

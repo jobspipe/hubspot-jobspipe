@@ -1,0 +1,9 @@
+{
+  "uid": "app-settings",
+  "type": "settings",
+  "config": {
+    "name": "JobsPipe Settings",
+    "description": "Configure your JobsPipe integration",
+    "entrypoint": "/app/settings/Settings.jsx"
+  }
+}

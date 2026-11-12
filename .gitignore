@@ -1,0 +1,44 @@
+# Dependencies
+node_modules/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# HubSpot
+.hubspot/
+hsprofile.*.json
+
+# Build outputs
+dist/
+build/
+*.log
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# OS files
+Thumbs.db
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# API keys and secrets (safety check)
+*_api_key*
+*_secret*
+credentials.json

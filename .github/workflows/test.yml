@@ -1,0 +1,156 @@
+name: Test and Validate
+
+on:
+  push:
+    branches: [ main, develop, 'cursor/**' ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Setup Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Run linting
+      run: npm run lint
+    
+    - name: Run tests
+      run: npm test
+    
+    - name: Generate coverage report
+      run: npm run test:coverage
+    
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        files: ./coverage/lcov.info
+        flags: unittests
+        name: codecov-umbrella
+        fail_ci_if_error: false
+
+  validate-project:
+    name: Validate HubSpot Project Structure
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Check hsproject.json exists
+      run: |
+        if [ ! -f hsproject.json ]; then
+          echo "Error: hsproject.json not found"
+          exit 1
+        fi
+    
+    - name: Validate JSON files
+      run: |
+        for file in $(find . -name "*.json" -not -path "*/node_modules/*"); do
+          echo "Validating $file"
+          cat "$file" | jq empty || exit 1
+        done
+    
+    - name: Check required files
+      run: |
+        files=(
+          "src/app/app-hsmeta.json"
+          "src/app/cards/company-hiring-card-hsmeta.json"
+          "src/app/cards/CompanyHiringCard.jsx"
+          "src/app/functions/getHiringData-hsmeta.json"
+          "src/app/functions/getHiringData.js"
+        )
+        for file in "${files[@]}"; do
+          if [ ! -f "$file" ]; then
+            echo "Error: Required file $file not found"
+            exit 1
+          fi
+        done
+
+  verify-jobspipe-endpoints:
+    name: Verify JobsPipe API Endpoints
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Fetch JobsPipe OpenAPI spec
+      run: |
+        curl -f https://jobspipe.dev/openapi.json -o openapi.json
+    
+    - name: Verify endpoints exist in spec
+      run: |
+        # Check that the endpoints we use are documented in the OpenAPI spec
+        endpoints=(
+          "/v1/jobs/search"
+        )
+        for endpoint in "${endpoints[@]}"; do
+          if ! grep -q "$endpoint" openapi.json; then
+            echo "Error: Endpoint $endpoint not found in OpenAPI spec"
+            exit 1
+          fi
+          echo "✓ Endpoint $endpoint verified"
+        done
+    
+    - name: Verify field names
+      run: |
+        # Check that key fields we reference exist in the spec
+        fields=(
+          "company_domain_or"
+          "posted_at_max_age_days"
+          "occupation_code"
+          "total_results"
+        )
+        for field in "${fields[@]}"; do
+          if ! grep -q "$field" openapi.json; then
+            echo "Warning: Field $field not found in OpenAPI spec"
+          else
+            echo "✓ Field $field verified"
+          fi
+        done
+
+  build-check:
+    name: Check Project Builds
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Install function dependencies
+      run: |
+        cd src/app/functions && npm install
+        cd ../cards && npm install
+    
+    - name: Check for syntax errors
+      run: |
+        node --check src/app/functions/getHiringData.js
+        node --check src/app/functions/getCompanyDomain.js
+        node --check src/app/functions/syncHiringDataToCompany.js
+        node --check src/app/workflow-actions/getHiringDataAction.js

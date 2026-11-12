@@ -1,0 +1,9 @@
+{
+  "name": "jobspipe-functions",
+  "version": "1.0.0",
+  "description": "JobsPipe HubSpot Serverless Functions",
+  "dependencies": {
+    "@hubspot/api-client": "^11.0.0",
+    "axios": "^1.6.0"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "name": "jobspipe-settings",
+  "version": "1.0.0",
+  "description": "JobsPipe HubSpot App Settings Page",
+  "dependencies": {
+    "@hubspot/ui-extensions": "^1.0.0",
+    "react": "^18.2.0"
+  }
+}

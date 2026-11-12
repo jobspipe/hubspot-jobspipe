@@ -1,0 +1,52 @@
+{
+  "uid": "get-hiring-data",
+  "type": "workflow-action",
+  "config": {
+    "actionType": "FUNCTION",
+    "objectTypes": ["COMPANIES"],
+    "inputFields": [
+      {
+        "fieldName": "company_domain",
+        "label": "Company Domain",
+        "description": "The website domain of the company (e.g., example.com)",
+        "propertyType": "string",
+        "required": false,
+        "supportsTokenization": true
+      }
+    ],
+    "outputFields": [
+      {
+        "fieldName": "open_roles_count",
+        "label": "Open Roles Count",
+        "propertyType": "number"
+      },
+      {
+        "fieldName": "top_department",
+        "label": "Top Hiring Department",
+        "propertyType": "string"
+      },
+      {
+        "fieldName": "hiring_signal",
+        "label": "Hiring Signal",
+        "propertyType": "string"
+      },
+      {
+        "fieldName": "success",
+        "label": "Success",
+        "propertyType": "boolean"
+      },
+      {
+        "fieldName": "error_message",
+        "label": "Error Message",
+        "propertyType": "string"
+      }
+    ],
+    "labels": {
+      "actionName": "Get JobsPipe hiring data",
+      "actionDescription": "Fetches hiring intelligence from JobsPipe for a company and returns the data",
+      "actionCardContent": "Get hiring data from JobsPipe for {{company_domain}}",
+      "appDisplayName": "JobsPipe"
+    },
+    "entrypoint": "/app/workflow-actions/getHiringDataAction.js"
+  }
+}

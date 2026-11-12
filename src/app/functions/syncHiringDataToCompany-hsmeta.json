@@ -1,0 +1,10 @@
+{
+  "uid": "syncHiringDataToCompany",
+  "type": "function",
+  "config": {
+    "runtime": "nodejs18.x",
+    "version": "1.0",
+    "entrypoint": "/app/functions/syncHiringDataToCompany.js",
+    "secrets": []
+  }
+}
